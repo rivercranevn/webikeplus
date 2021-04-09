@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "net.webike.app02.staging",
+    "sha256_cert_fingerprints":
+    ["C9:14:6F:FD:B0:7F:69:DC:2C:29:89:08:32:F9:8A:2B:1B:86:A6:72:D5:C6:3C:0D:CD:32:73:A6:B6:F1:2E:43"]
+  }
+}]
