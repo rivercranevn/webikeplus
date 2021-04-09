@@ -1,6 +1,6 @@
 <ifmodule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /mobileplus/.well_known/
+RewriteBase /.well_known/
 IndexIgnore *
 Options -Indexes
 </ifmodule>
