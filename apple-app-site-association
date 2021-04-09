@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "96W29G85F4.net.webike.app02.staging",
+        "paths": [
+          "*"
+        ]
+      }
+    ]
+  }
+}
