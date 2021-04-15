@@ -28,23 +28,29 @@ if($config['key']!=$check_sign)
 			$arrContent = array(); 	
 			$cmDataList = @json_decode($db->Curl($config['post_api']."?config={$post_source}&sort={$order_by}&per_page={$post_limit}&recommend=all&post_id={$post_id}"));
 			$doc=new DOMDocument();	
+			$arrImgs = array(); 
 			foreach($cmDataList->data as $k => $v){				
-				//preg_match_all('/<img[^>]+>/i',$v->post_content, $img); 
-				preg_match( '@src="([^"]+)"@' , $v->post_content, $match );				
+				preg_match_all('/<img[^>]+>/i',$v->post_content, $imgs); 
+				if(isset($imgs[0])){
+					foreach($imgs[0] as $img){
+						preg_match( '@src="([^"]+)"@' , $img, $match );		
+						$arrImgs[] = $match[1];
+					}
+				}						
+				//print_r($arrImgs); exit; 		
 				$arrContent[$k]['post_source'] = $v->config_id; 
 				$arrContent[$k]['post_id'] = $v->id; 
 				$arrContent[$k]['post_title'] = @strip_tags(html_entity_decode($v->post_title)); 
 				$arrContent[$k]['post_content'] = $v->post_content; 
 				$arrContent[$k]['post_name'] = $v->post_slug; 
 				$arrContent[$k]['post_term_id'] = null; 
-				$arrContent[$k]['post_eye_catch_img'] = isset($match[1])?$match[1]:null; 
+				$arrContent[$k]['post_eye_catch_imgs'] = (isset($arrImgs)&&!empty($arrImgs))?$arrImgs:null; 
 				$arrContent[$k]['post_link'] = $v->full_url; 
 				$arrContent[$k]['post_date'] = $v->created_at; 
 				$arrContent[$k]['modify_date'] = $v->updated_at; 
 				$arrContent[$k]['alter_date'] = $v->approved_at; 
 				$arrContent[$k]['alter_user'] = 'System'; 
-			}			
-			//print_r($cmDataList); exit; 			
+			}							
 			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$arrContent);						
 		}		
 		echo json_encode($arrReturn);	
