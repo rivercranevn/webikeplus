@@ -1,0 +1,10 @@
+<ifmodule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /webike-plus/api/
+IndexIgnore *
+Options -Indexes
+</ifmodule>
+
+RewriteRule ^cm-api-list[/]$ cm-api-list.php [L]
+RewriteRule ^cm-api-detail[/]$ cm-api-detail.php [L]
+RewriteRule ^cm-api-category[/]$ cm-api-categories.php [L]
