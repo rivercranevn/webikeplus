@@ -10,11 +10,11 @@ $db->connect();
 
 //$Domain = 'https://www.webike.net'; 
 //$key 	= '2a80445b8b';	
-$order_by 		= isset($_GET['order_by'])?$_GET['order_by']:'ASC';
+$order_by 		= isset($_GET['order_by'])?$_GET['order_by']:'';
 $category_id 	= isset($_GET['category_id'])?(int)$_GET['category_id']:null;
-$post_source 	= isset($_GET['post_source'])?(int)$_GET['post_source']:1;
+$post_source 	= isset($_GET['post_source'])?(int)$_GET['post_source']:52;
 $post_offset 	= isset($_GET['post_offset'])?(int)$_GET['post_offset']:0;
-$post_limit 	= isset($_GET['post_limit'])?(int)$_GET['post_limit']:5;
+$post_limit 	= isset($_GET['post_limit'])?(int)$_GET['post_limit']:20;
 $app_secret 	= 'e1111a26fc31aa10f444f69f41f4d5a'; 
 $app_id 		= 'webikeplus-app';				
 $check_sign 	= substr(hash_hmac('sha256', $app_id.'_'.$config['domain'], $app_secret),0,10);
@@ -31,10 +31,24 @@ if($config['key']!=$check_sign)
 	{
 		$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>array());
 		if(!empty($app_secret)){
-			//?config=52&sort=&per_page=20&recommend=all
-			$aContent = $db->Curl($config['post_api']."?config=52&sort=&per_page=20&recommend=all");	
-			print_r($aContent); exit; 
-			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$aContent);						
+			$arrContent = array(); 	
+			$cmDataList = @json_decode($db->Curl($config['post_api']."?config={$post_source}&sort={$order_by}&per_page={$post_limit}&recommend=all"));	
+			foreach($cmDataList->data as $k => $v){
+				preg_match( '@src="([^"]+)"@' , $v->post_content, $match );	
+				$arrContent[$k]['post_source'] = $v->config_id; 
+				$arrContent[$k]['post_id'] = $v->id; 
+				$arrContent[$k]['post_title'] = @strip_tags(html_entity_decode($v->post_title)); 
+				$arrContent[$k]['post_name'] = $v->post_slug; 
+				$arrContent[$k]['post_term_id'] = null; 
+				$arrContent[$k]['post_eye_catch_img'] = isset($match[1])?$match[1]:null; 
+				$arrContent[$k]['post_link'] = $v->full_url; 
+				$arrContent[$k]['post_date'] = $v->created_at; 
+				$arrContent[$k]['modify_date'] = $v->updated_at; 
+				$arrContent[$k]['alter_date'] = $v->approved_at; 
+				$arrContent[$k]['alter_user'] = 'System'; 
+			}			
+			//print_r($cmDataList); exit; 			
+			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$arrContent);						
 		}		
 		echo json_encode($arrReturn);	
 		exit(); 

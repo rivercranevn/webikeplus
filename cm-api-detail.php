@@ -25,9 +25,27 @@ if($config['key']!=$check_sign)
 	{
 		$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>array());
 		if(!empty($app_secret)){
-			$sll = $db->select("tbl_plus_wp_content","*",array("alter_user"=>'System', 'post_id'=>$post_id),"ORDER BY post_id ASC",0,1);
-			$aContent = $db->getResult($sll); 
-			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$aContent);						
+			$arrContent = array(); 	
+			$cmDataList = @json_decode($db->Curl($config['post_api']."?config={$post_source}&sort={$order_by}&per_page={$post_limit}&recommend=all&post_id={$post_id}"));
+			$doc=new DOMDocument();	
+			foreach($cmDataList->data as $k => $v){				
+				//preg_match_all('/<img[^>]+>/i',$v->post_content, $img); 
+				preg_match( '@src="([^"]+)"@' , $v->post_content, $match );				
+				$arrContent[$k]['post_source'] = $v->config_id; 
+				$arrContent[$k]['post_id'] = $v->id; 
+				$arrContent[$k]['post_title'] = @strip_tags(html_entity_decode($v->post_title)); 
+				$arrContent[$k]['post_content'] = $v->post_content; 
+				$arrContent[$k]['post_name'] = $v->post_slug; 
+				$arrContent[$k]['post_term_id'] = null; 
+				$arrContent[$k]['post_eye_catch_img'] = isset($match[1])?$match[1]:null; 
+				$arrContent[$k]['post_link'] = $v->full_url; 
+				$arrContent[$k]['post_date'] = $v->created_at; 
+				$arrContent[$k]['modify_date'] = $v->updated_at; 
+				$arrContent[$k]['alter_date'] = $v->approved_at; 
+				$arrContent[$k]['alter_user'] = 'System'; 
+			}			
+			//print_r($cmDataList); exit; 			
+			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$arrContent);						
 		}		
 		echo json_encode($arrReturn);	
 		exit(); 
