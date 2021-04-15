@@ -1,5 +1,4 @@
 <?php
-//set_time_limit(0);
 error_reporting(1);
 ini_set('display_errors', 'On');
 require("security.php");
