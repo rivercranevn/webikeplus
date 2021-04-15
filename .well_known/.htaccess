@@ -1,8 +1,0 @@
-<ifmodule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /.well_known/
-IndexIgnore *
-Options -Indexes
-</ifmodule>
-
-RewriteRule ^apple-app-site-association$ index.php [L]
