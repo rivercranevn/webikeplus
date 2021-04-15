@@ -1,0 +1,10 @@
+<ifmodule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /webike-plus/
+IndexIgnore *
+Options -Indexes
+</ifmodule>
+
+RewriteRule ^api/list[/]$ list.php [L]
+RewriteRule ^api/detail[/]$ detail.php [L]
+RewriteRule ^api/category[/]$ category.php [L]
