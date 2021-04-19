@@ -41,7 +41,7 @@ if($config['key']!=$check_sign)
 				$arrContent[$k]['post_source'] = $v->config_id; 
 				$arrContent[$k]['post_id'] = $v->id; 
 				$arrContent[$k]['post_title'] = @strip_tags(html_entity_decode($v->post_title)); 
-				$arrContent[$k]['post_content'] = $v->post_content; 
+				$arrContent[$k]['post_content'] = @stripslashes($v->post_content); 
 				$arrContent[$k]['post_name'] = $v->post_slug; 
 				$arrContent[$k]['post_term_id'] = null; 
 				$arrContent[$k]['post_eye_catch_imgs'] = (isset($arrImgs)&&!empty($arrImgs))?$arrImgs:null; 
@@ -51,7 +51,7 @@ if($config['key']!=$check_sign)
 				$arrContent[$k]['alter_date'] = $v->approved_at; 
 				$arrContent[$k]['alter_user'] = 'System'; 
 			}							
-			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$arrContent);						
+			$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>$arrContent[0]);						
 		}		
 		echo json_encode($arrReturn);	
 		exit(); 
