@@ -39,7 +39,7 @@ if($config['key']!=$check_sign)
 				if(isset($imgs[$k][0])){
 					foreach($imgs[$k][0] as $img){
 						preg_match( '@src="([^"]+)"@' , $img, $match[$k] );		
-						$arrImgs[] = $match[$k][1];
+						$arrImgs[$k] = $match[$k][1];
 					}
 				}
 				$arrContent[$k]['post_source'] = $v->config_id; 
@@ -47,7 +47,7 @@ if($config['key']!=$check_sign)
 				$arrContent[$k]['post_title'] = @strip_tags(html_entity_decode($v->post_title)); 
 				$arrContent[$k]['post_name'] = $v->post_slug; 
 				$arrContent[$k]['post_term_id'] = null; 
-				$arrContent[$k]['post_eye_catch_imgs'] = (isset($arrImgs)&&!empty($arrImgs))?$arrImgs:null; 
+				$arrContent[$k]['post_eye_catch_imgs'] = (isset($arrImgs[$k])&&!empty($arrImgs[$k]))?$arrImgs[$k]:null; 
 				$arrContent[$k]['post_link'] = $v->full_url; 
 				$arrContent[$k]['post_date'] = $v->created_at; 
 				$arrContent[$k]['modify_date'] = $v->updated_at; 
