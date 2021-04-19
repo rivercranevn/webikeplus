@@ -35,11 +35,11 @@ if($config['key']!=$check_sign)
 			$cmDataList = @json_decode($db->Curl($config['post_api']."?config={$post_source}&sort={$order_by}&per_page={$post_limit}&recommend=all"));	
 			$arrImgs = array(); 
 			foreach($cmDataList->data as $k => $v){
-				preg_match_all('/<img[^>]+>/i',$v->post_content, $imgs); 
-				if(isset($imgs[0])){
-					foreach($imgs[0] as $img){
-						preg_match( '@src="([^"]+)"@' , $img, $match );		
-						$arrImgs[] = $match[1];
+				preg_match_all('/<img[^>]+>/i',$v->post_content, $imgs[$k]); 
+				if(isset($imgs[$k][0])){
+					foreach($imgs[$k][0] as $img){
+						preg_match( '@src="([^"]+)"@' , $img, $match[$k] );		
+						$arrImgs[] = $match[$k][1];
 					}
 				}
 				$arrContent[$k]['post_source'] = $v->config_id; 
