@@ -39,7 +39,7 @@ if($config['key']!=$check_sign)
 				if(isset($imgs[$k][0])){
 					foreach($imgs[$k][0] as $img){
 						preg_match( '@src="([^"]+)"@' , $img, $match[$k] );		
-						$arrImgs[$k] = $match[$k][1];
+						$arrImgs[$k][] = $match[$k][1];
 					}
 				}
 				$arrContent[$k]['post_source'] = $v->config_id; 
