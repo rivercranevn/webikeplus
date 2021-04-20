@@ -27,9 +27,6 @@ if($config['key']!=$check_sign)
 	{
 		$arrReturn	= array('response_code'=>'S000', 'response_message'=>'OK', 'data'=>array());
 		if(!empty($app_secret)){
-			//?sort=&page=1&per_page=10&search=&config=52
-			//$sll = $db->Curl($config['category_api']);
-			//$category_tree = $db->buildTree($aContent,0);						
 			$arrContent = array(); 	
 			$cmDataList = @json_decode($db->Curl($config['category_api']."?config={$post_source}&sort={$order_by}&per_page={$post_limit}&page=1"));	
 			$arrImgs = array(); 
