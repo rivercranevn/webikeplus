@@ -22,10 +22,11 @@ class Database
     /*
      * Edit the following variables
      */
-    private $db_host = 'localhost';  // Database Host
-    private $db_user = 'root';       // Username
-    private $db_pass = '';			 // Password 
-    private $db_name = 'webikesh';   // Database 
+    private $db_host = '192.168.88.218:3307';  // Database Host
+    private $db_user = 'root';            // Username
+    private $db_pass = '123456';         // Password
+    private $db_name = 'wp_app_batch';   // Database
+    private $db_port = '3307';           // Port
     /*
      * End edit
      */
