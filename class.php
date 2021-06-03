@@ -42,7 +42,7 @@ class Database
     {
         if(!$this->con)
         {	
-            $myconn = @mysqli_connect($this->db_host,$this->db_user,$this->db_pass, $this->db_name, $this->db_port) or die("Some error occurred during connection " . mysqli_error($myconn));
+            $myconn = @mysqli_connect($this->db_host,$this->db_user,$this->db_pass, $this->db_name, $this->db_port);
             if($myconn)
             {
 				//mysql_query("SET NAMES 'utf8'");

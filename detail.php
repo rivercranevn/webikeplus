@@ -3,6 +3,15 @@ error_reporting(1);
 ini_set('display_errors', 'Off');
 require("security.php");
 header("Content-Type: application/json");
+
+$link = mysqli_connect('192.168.88.218','root','123456','wp_app_batch', 3307) or die('Unable to establish a wp_app_batch connection');
+if (!$link) {
+    die('Connect Error: ' . mysqli_connect_error());
+}
+else {
+    echo 'Success... ' . mysqli_get_host_info($link) . "\n";
+}
+
 require("class.php");
 $db = new Database();
 $db->connect();
