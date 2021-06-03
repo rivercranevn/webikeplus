@@ -1,5 +1,5 @@
 <?php
-  //echo md5('s@ngpc123456'); exit;	
+  echo md5('s@ngpc123456'); exit;
   $querystring = $_SERVER['QUERY_STRING'];
   $deny = array('chr(', 'chr=', 'chr%20', '%20chr', 'wget%20', '%20wget', 'wget(',
  			       'cmd=', '%20cmd', 'cmd%20', 'rush=', '%20rush', 'rush%20',
