@@ -5,6 +5,6 @@ IndexIgnore *
 Options -Indexes
 </ifmodule>
 
-RewriteRule ^webike-plus/api/list[/]$ list.php [L]
-RewriteRule ^webike-plus/api/detail[/]$ detail.php [L]
-RewriteRule ^webike-plus/api/category[/]$ category.php [L]
+RewriteRule ^wpn/api/list[/]$ list.php [L]
+RewriteRule ^wpn/api/detail[/]$ detail.php [L]
+RewriteRule ^wpn/api/category[/]$ category.php [L]
