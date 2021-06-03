@@ -22,7 +22,7 @@ class Database
     /*
      * Edit the following variables
      */
-    private $db_host = '192.168.88.218:3307';  // Database Host
+    private $db_host = '192.168.88.218';  // Database Host
     private $db_user = 'root';            // Username
     private $db_pass = '123456';         // Password
     private $db_name = 'wp_app_batch';   // Database
@@ -42,7 +42,7 @@ class Database
     {
         if(!$this->con)
         {	
-            $myconn = @mysqli_connect($this->db_host,$this->db_user,$this->db_pass);
+            $myconn = @mysqli_connect($this->db_host,$this->db_user,$this->db_pass, $this->db_name, $this->db_port);
             if($myconn)
             {
 				//mysql_query("SET NAMES 'utf8'");
